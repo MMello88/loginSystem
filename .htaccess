@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond $1 !^(index\.php|images|robots\.txt)
+RewriteRule ^(.*)$ index.php/$1 [L]
+RedirectMatch 404 /\.git
