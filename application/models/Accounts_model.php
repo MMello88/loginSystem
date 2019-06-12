@@ -13,7 +13,7 @@ class Accounts_model extends CI_Model {
     		'nome' => $this->input->post('nome'),
     		'email' => $this->input->post('email'),
     		'senha' => md5($this->input->post('senha')),
-    		'Ativo' => '1',
+    		'ativo' => '1',
     		'dt_cadastro' => date('Y-m-d H:i:s'),
             'cadastro_completo' => '0',
     	];
