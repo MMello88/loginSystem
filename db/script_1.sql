@@ -146,12 +146,33 @@ CREATE TABLE `miste872_matilab`.`tbl_relacional`(
 CREATE TABLE `miste872_matilab`.`tbl_relacional_coluna`(  
   `id_relacional_coluna` INT(11) NOT NULL AUTO_INCREMENT,
   `id_coluna_pai` INT(11) NOT NULL,
-  `id_coluna_filho` INT(11) NOT NULL,
+  `id_coluna_filha` INT(11) NOT NULL,
   PRIMARY KEY (`id_relacional_coluna`),
   CONSTRAINT `fk_coluna_pai` FOREIGN KEY (`id_coluna_pai`) REFERENCES `miste872_matilab`.`tbl_coluna`(`id_coluna`),
-  CONSTRAINT `fk_coluna_filho` FOREIGN KEY (`id_coluna_filho`) REFERENCES `miste872_matilab`.`tbl_coluna`(`id_coluna`)
+  CONSTRAINT `fk_coluna_filha` FOREIGN KEY (`id_coluna_filha`) REFERENCES `miste872_matilab`.`tbl_coluna`(`id_coluna`)
 );
 
 ALTER TABLE `miste872_matilab`.`tbl_relacional_coluna`   
   ADD COLUMN `id_relacional` INT(11) NOT NULL AFTER `id_relacional_coluna`,
   ADD CONSTRAINT `fk_relacional` FOREIGN KEY (`id_relacional`) REFERENCES `miste872_matilab`.`tbl_relacional`(`id_relacional`);
+
+
+/*
+
+-- td para realizar os cadastro
+SELECT * FROM tbl_tabela;
+SELECT * FROM tbl_coluna;
+SELECT * FROM tbl_relacional;
+SELECT * FROM tbl_relacional_coluna;
+-- -----------------------------------------
+
+-- td sobre as tabelas do menu
+SELECT * FROM tbl_titulo;
+SELECT * FROM tbl_menu;
+SELECT * FROM tbl_submenu;
+SELECT * FROM tbl_menu_titulo;
+SELECT * FROM tbl_menu_usuario;
+SELECT * FROM tbl_tipo_usuario;
+-- -----------------------------------------
+
+*/

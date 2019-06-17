@@ -5,10 +5,8 @@ class Cadastro extends MY_Controller {
 
 	public function index($url)
 	{
-		$this->cadastro->get($url);
-		$this->setView('menu/listar');
+		$this->data['tabela'] = $this->cadastro->getTabela($url);
+		$this->data['consulta'] = $this->cadastro->getConsulta($this->data['tabela']);
+		$this->setView('cadastro/listar');
 	}
-
-
-
 }
