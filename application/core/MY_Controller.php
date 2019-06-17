@@ -10,7 +10,7 @@ class MY_Controller extends CI_Controller {
 	 * 
 	 * Sem vai exisit em seu conteúdo os valores do usuário
 	 *
-	 * Object of account ["Logado", "Email", "CadastroCompleto"]
+	 * Object of account ["Logado", "Email", "CadastroCompleto", "id_tipo_usuario"]
 	 *
 	 */
 	public $account;
@@ -28,10 +28,17 @@ class MY_Controller extends CI_Controller {
 		if (!$this->logged){
 			$this->logged = $this->hasCookie();
 		}
+
+		if($this->logged){
+			$this->get_menu();
+			$this->data['account'] =  $this->account;
+		}
 	}
 
 	public function isLogged(){
+
 		if ($this->session->userdata("account")){
+
 			$this->account = (object)$this->session->userdata("account");
 			return true;
 		}
@@ -46,11 +53,25 @@ class MY_Controller extends CI_Controller {
 			if (empty($usuario)){
 				return false;
 			} else {
-				$this->session->set_userdata("account",["Email" => $usuario->email, "CadastroCompleto" => $usuario->cadastro_completo, "cookie" => True]);
+				$this->session->set_userdata("account",["email" => $usuario->email, "nome" => $usuario->nome, "CadastroCompleto" => $usuario->cadastro_completo, "cookie" => True, "id_tipo_usuario" => $_usuario->id_tipo_usuario]);
 				$this->account = (object)$this->session->userdata("account");
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public function setView($view){
+		if($this->logged){
+			$this->load->view("dashboard/includes/header", $this->data);
+			$this->load->view("dashboard/$view", $this->data);
+			$this->load->view("dashboard/includes/footer", $this->data);
+		} else {
+			$this->load->view($view, $this->data);
+		}
+	}
+
+	private function get_menu(){
+		$this->data['main_menu'] = $this->menu->Menu($this->account->id_tipo_usuario);
 	}
 }

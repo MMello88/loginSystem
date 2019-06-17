@@ -82,6 +82,7 @@ class Acconts {
 		$.ajax({
 			url: base_url + "Accounts/validate_session_account",
 			success: function(data){
+				console.log(data);
 				this.respJson = new ResponseJson(data);
 				if (this.respJson.code == '1' && this.respJson.message == 'true')
 					window.location = base_url + "Welcome";
@@ -116,8 +117,6 @@ class Acconts {
 					} else {
 						me.validateSessionAccount();
 					}
-					
-					
 				}
 			},
 			error: function(data) {
