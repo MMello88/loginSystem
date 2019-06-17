@@ -57,12 +57,15 @@ CREATE TABLE `miste872_matilab`.`tbl_submenu`(
   CONSTRAINT `fk_menu_submenu` FOREIGN KEY (`id_menu`) REFERENCES `miste872_matilab`.`tbl_menu`(`id_menu`)
 );
 
+INSERT INTO tbl_tipo_usuario VALUES (NULL, 'Admin', 'a');
+
+SET FOREIGN_KEY_CHECKS=0;
 
 ALTER TABLE `miste872_matilab`.`tbl_usuario`   
   ADD COLUMN `id_tipo_usuario` INT(11) NOT NULL AFTER `ver_cad_usuario`,
   ADD CONSTRAINT `fk_tipo_usuario` FOREIGN KEY (`id_tipo_usuario`) REFERENCES `miste872_matilab`.`tbl_tipo_usuario`(`id_tipo_usuario`);
 
-INSERT INTO tbl_tipo_usuario VALUES (NULL, 'Admin', 'a');
+SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE `miste872_matilab`.`tbl_menu_usuario`(  
   `id_menu_usuario` INT(11) NOT NULL AUTO_INCREMENT,
@@ -106,3 +109,49 @@ INSERT INTO tbl_menu_titulo VALUES (NULL, 2, 3);
 INSERT INTO tbl_menu VALUES (NULL, 'Menu', 'Dashboard/Menu', 1, 'a', 'ti-layout-grid4-alt');
 INSERT INTO tbl_menu_titulo VALUES (NULL, 3, 2);
 INSERT INTO tbl_menu_usuario VALUES (NULL, 1, 3);
+
+CREATE TABLE `miste872_matilab`.`tbl_tabela`(  
+  `id_tabela` INT(11) NOT NULL AUTO_INCREMENT,
+  `tabela` VARCHAR(100) NOT NULL,
+  `url` VARCHAR(100) NOT NULL,
+  `label` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id_tabela`)
+);
+
+CREATE TABLE `miste872_matilab`.`tbl_coluna`(  
+  `id_coluna` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_tabela` INT(11) NOT NULL,
+  `coluna` VARCHAR(100) NOT NULL,
+  `tipo` VARCHAR(100) NOT NULL,
+  `lenght` VARCHAR(15),
+  `default` VARCHAR(100),
+  `primary` CHAR(1),
+  `obrigatorio` CHAR(1) NOT NULL,
+  `input_label` VARCHAR(100) NOT NULL,
+  `input_visivel` CHAR(1) NOT NULL,
+  `input_type` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id_coluna`),
+  CONSTRAINT `fk_tabela` FOREIGN KEY (`id_tabela`) REFERENCES `miste872_matilab`.`tbl_tabela`(`id_tabela`)
+);
+
+
+CREATE TABLE `miste872_matilab`.`tbl_relacional`(  
+  `id_relacional` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_tabela_pai` INT(11) NOT NULL,
+  `id_tabela_filha` INT(11) NOT NULL,
+  `pai_filha` CHAR(1) NOT NULL COMMENT '0 - não / 1 - sim',
+  PRIMARY KEY (`id_relacional`)
+);
+
+CREATE TABLE `miste872_matilab`.`tbl_relacional_coluna`(  
+  `id_relacional_coluna` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_coluna_pai` INT(11) NOT NULL,
+  `id_coluna_filho` INT(11) NOT NULL,
+  PRIMARY KEY (`id_relacional_coluna`),
+  CONSTRAINT `fk_coluna_pai` FOREIGN KEY (`id_coluna_pai`) REFERENCES `miste872_matilab`.`tbl_coluna`(`id_coluna`),
+  CONSTRAINT `fk_coluna_filho` FOREIGN KEY (`id_coluna_filho`) REFERENCES `miste872_matilab`.`tbl_coluna`(`id_coluna`)
+);
+
+ALTER TABLE `miste872_matilab`.`tbl_relacional_coluna`   
+  ADD COLUMN `id_relacional` INT(11) NOT NULL AFTER `id_relacional_coluna`,
+  ADD CONSTRAINT `fk_relacional` FOREIGN KEY (`id_relacional`) REFERENCES `miste872_matilab`.`tbl_relacional`(`id_relacional`);
