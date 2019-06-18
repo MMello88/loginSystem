@@ -17,55 +17,34 @@ function my_form($tabela){
 }
 
 function my_data_table($tabela, $rows){
-	/* "<!-- <table id='row-select' class='display table table-borderd table-hover'>
-                <thead>
-                    <tr>
-                        
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </thead>
+    if(!empty($tabela)){
+        $data = "<table id='row-select' class='display table table-borderd table-hover'>";
+        $tr = "<thead> <tr>";
+        foreach ($tabela->colunas as $coluna) {
+            $tr .= "<th>{$coluna->input_label}</th>";
+        }
+        $data .= $tr . "<th> x </th> </tr> </thead>";
+        $tbody = "<tbody>";
+        foreach ($rows as $key => $row) {
+            $tr = "<tr>";
+            
+            foreach ($tabela->colunas as $coluna){
+                $col = $coluna->coluna;
+                $tr .= "<td>" . $row->$col . "</td>";
+            }
 
-                <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </tfoot>
-            </table>-->";*/
-    $data = "<table id='row-select' class='display table table-borderd table-hover'>";
-    $tr = "<thead> <tr>";
-    foreach ($tabela->colunas as $coluna) {
-   		$tr .= "<th>{$coluna->input_label}</th>";
+            foreach ($tabela->colunas as $coluna){
+                $col = $coluna->coluna;
+                if($coluna->primary == '1'){
+                    $tr .= "<td>Editar" . $row->$col . "</td>";
+                }
+            }
+
+            $tr .= "<tr>";
+        }
+        $tbody .= $tr . "</tbody>";
+        $data .= $tbody . "</table>";
+        return $data;
     }
-    $data .= $tr . "</tr> </thead>";
-    $tbody = "<tbody>";
-    foreach ($rows as $key => $row) {
-    	$tr = "<tr>";
-	    foreach ($tabela->colunas as $coluna) {
-	    	$col = $coluna->coluna;
-	    	$tr .= "<td>" . $col . "</td>";
-	    }
-	    $tr = "<tr>";
-	}
-    $tbody .= $tr . "</tbody>";
-    $data .= $tbody . "</table>";
-    return $data;
+    return null;
 }

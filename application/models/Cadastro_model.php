@@ -14,10 +14,10 @@ class Cadastro_model extends CI_Model {
     public function getTabelaByUrl($url){
     	$query = $this->db->get_where('tabela', ['url' => $url]);
     	$row = $query->row();
-    	
-		$row->colunas = $this->getColunas($row->id_tabela);
-		$row->tabela_filha = $this->getRelacional($row->id_tabela);
-    	
+    	if(!empty($row)){
+			$row->colunas = $this->getColunas($row->id_tabela);
+			//$row->tabela_filha = $this->getRelacional($row->id_tabela);
+		}
     	return $row;
     }
 
@@ -42,30 +42,21 @@ class Cadastro_model extends CI_Model {
 				       tf.label as label_filha,
 				       tf.url as url_filha
 				 from tbl_relacional r
-				inner join tbl_tabela t on (t.id_tabela = r.id_tabela_pai) 
+				inner join tbl_tabela t on (t.id_tabela = r.id_tabela_pai)
+				inner join tbl_coluna c on (c.id_coluna = r.id_coluna_pai and c.id_tabela = r.id_tabela_pai)
 				INNER JOIN tbl_tabela tf ON (tf.id_tabela = r.id_tabela_filha)
+				inner join tbl_coluna cf on (cf.id_coluna = r.id_coluna_filha and cf.id_tabela = r.id_tabela_filha)
 				where r.id_tabela_pai = $id_tabela";
 		$query = $this->db->query($sql);
-    	$rows = $query->result();	
     	$rows = $query->result();
-    	foreach ($rows as $key => $row) {
-    		$rows[$key]->coluna_pai_filha = $this->getRelColunas($row->id_relacional, $row->id_tabela_pai, $row->id_tabela_filha);
-    	}
     	return $rows;
     }
 
-    public function getRelColunas($id_relacional, $id_tabela_pai, $id_tabela_filha){
-    	$query = $this->db->get_where('relacional_coluna', ['id_relacional' => $id_relacional]);
-    	$rows = $query->result();
-    	foreach ($rows as $key => $row) {
-    		$rows[$key]->coluna_pai = $this->getColunas($id_tabela_pai, $row->id_coluna_pai);
-    		$rows[$key]->coluna_flha = $this->getColunas($id_tabela_filha, $row->id_coluna_filha);
-    	}
-    	return $rows;
-    }
-
-    public function getConsulta($tabela = array(), $limit = -1){
-    	$query = $this->db->get_where($tabela->tabela);
-    	return $query->result();
+    public function getConsulta($tabela, $limit = -1){
+		if(!empty($tabela)){
+			$query = $this->db->get_where($tabela->tabela);
+			return $query->result();
+		}
+		return null;
     }
 }

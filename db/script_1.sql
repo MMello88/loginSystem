@@ -138,23 +138,17 @@ CREATE TABLE `miste872_matilab`.`tbl_coluna`(
 CREATE TABLE `miste872_matilab`.`tbl_relacional`(  
   `id_relacional` INT(11) NOT NULL AUTO_INCREMENT,
   `id_tabela_pai` INT(11) NOT NULL,
-  `id_tabela_filha` INT(11) NOT NULL,
-  `pai_filha` CHAR(1) NOT NULL COMMENT '0 - não / 1 - sim',
-  PRIMARY KEY (`id_relacional`)
-);
-
-CREATE TABLE `miste872_matilab`.`tbl_relacional_coluna`(  
-  `id_relacional_coluna` INT(11) NOT NULL AUTO_INCREMENT,
   `id_coluna_pai` INT(11) NOT NULL,
-  `id_coluna_filha` INT(11) NOT NULL,
-  PRIMARY KEY (`id_relacional_coluna`),
+  `id_tabela_rel` INT(11) NOT NULL,
+  `id_coluna_rel` INT(11) NOT NULL,
+  `pai_filha` CHAR(1) NOT NULL COMMENT '0 - não / 1 - sim',
+  PRIMARY KEY (`id_relacional`),
+  CONSTRAINT `fk_tabela_pai` FOREIGN KEY (`id_tabela_pai`) REFERENCES `miste872_matilab`.`tbl_tabela`(`id_tabela`),
+  CONSTRAINT `fk_tabela_rel` FOREIGN KEY (`id_tabela_rel`) REFERENCES `miste872_matilab`.`tbl_tabela`(`id_tabela`),
   CONSTRAINT `fk_coluna_pai` FOREIGN KEY (`id_coluna_pai`) REFERENCES `miste872_matilab`.`tbl_coluna`(`id_coluna`),
-  CONSTRAINT `fk_coluna_filha` FOREIGN KEY (`id_coluna_filha`) REFERENCES `miste872_matilab`.`tbl_coluna`(`id_coluna`)
+  CONSTRAINT `fk_coluna_rel` FOREIGN KEY (`id_coluna_rel`) REFERENCES `miste872_matilab`.`tbl_coluna`(`id_coluna`)
 );
 
-ALTER TABLE `miste872_matilab`.`tbl_relacional_coluna`   
-  ADD COLUMN `id_relacional` INT(11) NOT NULL AFTER `id_relacional_coluna`,
-  ADD CONSTRAINT `fk_relacional` FOREIGN KEY (`id_relacional`) REFERENCES `miste872_matilab`.`tbl_relacional`(`id_relacional`);
 
 
 /*
