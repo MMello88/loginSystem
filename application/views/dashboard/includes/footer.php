@@ -16,64 +16,53 @@
         <script src="<?= base_url() ?>assets/template/assets/js/lib/menubar/sidebar.js"></script>
         <script src="<?= base_url() ?>assets/template/assets/js/lib/preloader/pace.min.js"></script>
         <!-- sidebar -->
+        <script src="<?= base_url() ?>assets/template/assets/js/lib/popper/popper.min.js"></script>
         <script src="<?= base_url() ?>assets/template/assets/js/lib/bootstrap.min.js"></script>
+        
 
         <!-- bootstrap -->
 
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/circle-progress/circle-progress.min.js"></script>
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/circle-progress/circle-progress-init.js"></script>
+        <?php
+        if (isset($js)){
+            foreach ($js as $arq) {
+                echo "<script src='$arq'></script>";
+            }
+        } ?>
 
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/morris-chart/raphael-min.js"></script>
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/morris-chart/morris.js"></script>
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/morris-chart/morris-init.js"></script>
+        <!-- scripit init-->
 
-        <!--  flot-chart js -->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/flot-chart/jquery.flot.js"></script>
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/flot-chart/jquery.flot.resize.js"></script>
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/flot-chart/flot-chart-init.js"></script>
-        <!-- // flot-chart js -->
+<script type="text/javascript">
+    
+    $('#exampleModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) 
+      var recipient = button.data('whatever')
+      console.log(recipient)
+      var modal = $(this)
+      modal.find('.modal-title').text('New message to ' + recipient)
+      modal.find('.modal-body input').val(recipient)
+    });
 
 
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/jquery.vmap.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/jquery.vmap.min.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/jquery.vmap.sampledata.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.world.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.algeria.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.argentina.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.brazil.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.france.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.germany.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.greece.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.iran.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.iraq.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.russia.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.tunisia.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.europe.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/country/jquery.vmap.usa.js"></script>
-        <!-- scripit init-->
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/vector-map/vector.init.js"></script>
+document.querySelector('#add').onclick = function(){
+    var recipient = this.dataset.whatever;
+    
+    swal({
+            title: "Sweet ajax request !!",
+            text: "Submit to run ajax request !! " + recipient,
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        },
+        function(){
+            setTimeout(function(){
+                swal("Hey, your ajax request finished !!");
+            }, 2000);
+        });
+};
 
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/weather/weather-init.js"></script>
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
-        <script src="<?= base_url() ?>assets/template/assets/js/scripts.js"></script>
-        <!-- scripit init-->
+        
+</script>
 
     </body>
 

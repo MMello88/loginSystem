@@ -18,7 +18,7 @@ function my_form($tabela){
 
 function my_data_table($tabela, $rows){
     if(!empty($tabela)){
-        $data = "<table id='row-select' class='display table table-borderd table-hover'>";
+        $data = "<table id='row-select' class='display table table-borderd table-hover mb-5'>";
         $tr = "<thead> <tr>";
         foreach ($tabela->colunas as $coluna) {
             $tr .= "<th>{$coluna->input_label}</th>";
@@ -36,10 +36,21 @@ function my_data_table($tabela, $rows){
             foreach ($tabela->colunas as $coluna){
                 $col = $coluna->coluna;
                 if($coluna->primary == '1'){
-                    $tr .= "<td>Editar" . $row->$col . "</td>";
+                    $tr .= "<td>
+                                <div class='btn-group'>
+                                    <button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                        Action
+                                    </button>
+                                    <div class='dropdown-menu'>
+                                        <a class='dropdown-item' href='#' id='edt' data-table='{$tabela->tabela}' data-id_primary='{$row->$col}'>Editar</a>
+                                        <a class='dropdown-item' href='#' id='del' data-table='{$tabela->tabela}' data-id_primary='{$row->$col}'>Remover</a>
+                                        <div class='dropdown-divider'></div>
+                                        <a class='dropdown-item' href='#'>Registro Filho</a>
+                                    </div>
+                                </div>
+                            </td>";
                 }
             }
-
             $tr .= "<tr>";
         }
         $tbody .= $tr . "</tbody>";

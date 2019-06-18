@@ -15,6 +15,10 @@ class MY_Controller extends CI_Controller {
 	 */
 	public $account;
 
+	public $css = [];
+
+	public $js = [];
+
 	public function __construct() {
 		
 		parent::__construct();

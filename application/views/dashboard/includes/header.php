@@ -28,7 +28,12 @@
         <link href="<?= base_url() ?>assets/template/assets/css/lib/themify-icons.css" rel="stylesheet">
         <link href="<?= base_url() ?>assets/template/assets/css/lib/menubar/sidebar.css" rel="stylesheet">
         <link href="<?= base_url() ?>assets/template/assets/css/lib/bootstrap.min.css" rel="stylesheet">
-
+        <?php 
+        if (isset($css)){
+            foreach ($css as $arq) {
+                echo "<link href='$arq' rel='stylesheet'>";
+            } 
+        }?>
         <link href="<?= base_url() ?>assets/template/assets/css/lib/helper.css" rel="stylesheet">
         <link href="<?= base_url() ?>assets/template/assets/css/style.css" rel="stylesheet">
     </head>
