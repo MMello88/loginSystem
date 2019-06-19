@@ -17,10 +17,8 @@
         <script src="<?= base_url() ?>assets/template/assets/js/lib/preloader/pace.min.js"></script>
         <!-- sidebar -->
         <script src="<?= base_url() ?>assets/template/assets/js/lib/popper/popper.min.js"></script>
-        <script src="<?= base_url() ?>assets/template/assets/js/lib/bootstrap.min.js"></script>
-        
-
         <!-- bootstrap -->
+        <script src="<?= base_url() ?>assets/template/assets/js/lib/bootstrap.min.js"></script>
 
         <?php
         if (isset($js)){
@@ -28,42 +26,6 @@
                 echo "<script src='$arq'></script>";
             }
         } ?>
-
-        <!-- scripit init-->
-
-<script type="text/javascript">
-    
-    $('#exampleModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) 
-      var recipient = button.data('whatever')
-      console.log(recipient)
-      var modal = $(this)
-      modal.find('.modal-title').text('New message to ' + recipient)
-      modal.find('.modal-body input').val(recipient)
-    });
-
-
-document.querySelector('#add').onclick = function(){
-    var recipient = this.dataset.whatever;
-    
-    swal({
-            title: "Sweet ajax request !!",
-            text: "Submit to run ajax request !! " + recipient,
-            type: "info",
-            showCancelButton: true,
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true,
-        },
-        function(){
-            setTimeout(function(){
-                swal("Hey, your ajax request finished !!");
-            }, 2000);
-        });
-};
-
-        
-</script>
-
     </body>
 
 </html>

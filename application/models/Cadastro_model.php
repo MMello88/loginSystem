@@ -7,8 +7,14 @@ class Cadastro_model extends CI_Model {
         parent::__construct();
     }
 
-    public function getTabela($url){
-    	return $this->getTabelaByUrl($url);
+    public function getTabela($id_tabela){
+    	$query = $this->db->get_where('tabela', ['id_tabela' => $id_tabela]);
+    	$row = $query->row();
+    	if(!empty($row)){
+			$row->colunas = $this->getColunas($row->id_tabela);
+			//$row->tabela_filha = $this->getRelacional($row->id_tabela);
+		}
+    	return $row;
     }
 
     public function getTabelaByUrl($url){
