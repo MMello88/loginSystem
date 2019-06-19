@@ -58,10 +58,14 @@ class Cadastro_model extends CI_Model {
     	return $rows;
     }
 
-    public function getConsulta($tabela, $limit = -1){
+    public function getConsulta($tabela, $where = array(), $limit = -1){
 		if(!empty($tabela)){
-			$query = $this->db->get_where($tabela->tabela);
-			return $query->result();
+			$query = $this->db->get_where($tabela->tabela, $where);
+			if (empty($where))
+				return $query->result();
+			else 
+				return $query->row();
+			
 		}
 		return null;
     }

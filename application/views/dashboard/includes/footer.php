@@ -9,6 +9,7 @@
             </form>
         </div>
 
+        <script> var base_url = '<?= base_url() ?>' </script>
         <!-- jquery vendor -->
         <script src="<?= base_url() ?>assets/template/assets/js/lib/jquery.min.js"></script>
         <script src="<?= base_url() ?>assets/template/assets/js/lib/jquery.nanoscroller.min.js"></script>

@@ -22,7 +22,21 @@ class Cadastro extends MY_Controller {
 		$this->setView('cadastro/viewCadastro');
 	}
 
-	public function getFormulario($id_tabela, $id_primary){
-		$this->data['tabela'] = $this->cadastro->getTabelaByUrl($id_tabela);
+	public function getFormulario($id_tabela, $id_primary = ''){
+		//if(!$this->input->is_ajax_request()){
+		//	redirect("");
+		//}
+
+		$tabela = $this->cadastro->getTabela($id_tabela);
+
+		if(!empty($id_primary)){
+			foreach($tabela->colunas as $coluna){
+				if ($coluna->primary)
+					$consulta = $this->cadastro->getConsulta($tabela, [$coluna->coluna, $id_primary]);
+			}
+			echo my_form($tabela, $consulta);			
+		} else {
+			echo my_form($tabela);
+		}
 	}
 }
