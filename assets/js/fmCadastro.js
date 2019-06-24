@@ -1,4 +1,4 @@
-$(document).ready(function () { 
+
 
     var table = $('#rowselect').DataTable();
 
@@ -14,7 +14,6 @@ $(document).ready(function () {
                 modal.find('#form_html').html(data);
             },
             error: function(data){
-                console.log("3");
                 modal.find('#form_html').html(data);
             }
         });
@@ -35,7 +34,7 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on("click", "#btnCadSalvar", function(){
+    $(document).on("click", "#btnCadSalvar", function(e){
         $.ajax({
             type: "POST",
             url: $("#formCadastro").attr("action"),
@@ -70,4 +69,3 @@ $(document).ready(function () {
         //return false;
     });
 
-});

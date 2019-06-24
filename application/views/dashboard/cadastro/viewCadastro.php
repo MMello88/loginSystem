@@ -3,10 +3,10 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-title">
-                                    <h4><a class='' href='#' data-toggle='modal' data-target='#cad' data-table='<?= $tabela->id_tabela ?>'>Cadastrar</a></h4>
+                                    <h4><a href='#' data-toggle='modal' data-target='#cad' data-table='<?= $tabela->id_tabela ?>'>Cadastrar</a></h4>
                                     
                                 </div>
-                                <div class="bootstrap-data-table-panel">
+                                <div class="bootstrap-data-table-panel" id="bootstrap-data-table-panel">
                                     <div class="table-responsive">
                                         <?= my_data_table($tabela, $consulta) ?>
                                     </div>
@@ -30,15 +30,14 @@
 
 
                 <div class="modal fade" id="edt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class='modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable' role='document' id="form_html">
+                    <div class='modal-dialog modal-xl modal-dialog-centered' role='document' id="form_html">
                     </div>
                 </div>
 
                 <div class="modal fade" id="cad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class='modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable' role='document' id="form_html">
+                    <div class='modal-dialog modal-xl modal-dialog-centered' role='document' id="form_html">
                     </div>
                 </div>
-
 
                 <!-- Modal Message -->
                 <div class="modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="Modalmessage" aria-hidden="true">
