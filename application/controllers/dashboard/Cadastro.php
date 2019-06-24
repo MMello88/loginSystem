@@ -7,9 +7,13 @@ class Cadastro extends MY_Controller {
 		
 		parent::__construct();
 
-		$this->css[] = base_url("assets/template/assets/css/lib/sweetalert/sweetalert.css");		
-		$this->js[] = base_url("assets/template/assets/js/lib/sweetalert/sweetalert.min.js");
+		
+		$this->js[] = base_url("assets/template/assets/js/lib/datatable/datatables.min.js");
+		$this->js[] = base_url("assets/template/assets/js/lib/datatable/DataTables-1.10.18/js/jquery.dataTables.min.js");
+		$this->js[] = base_url("assets/template/assets/js/lib/datatable/DataTables-1.10.18/js/dataTables.bootstrap4.min.js");
+
 		$this->js[] = base_url("assets/js/fmCadastro.js");
+		
 
 		$this->data['css'] = $this->css;
 		$this->data['js'] = $this->js;
@@ -22,21 +26,40 @@ class Cadastro extends MY_Controller {
 		$this->setView('cadastro/viewCadastro');
 	}
 
-	public function getFormulario($id_tabela, $id_primary = ''){
-		//if(!$this->input->is_ajax_request()){
-		//	redirect("");
-		//}
+	public function getFormulario($id_tabela, $cp = '', $id = ''){
+		if(!$this->input->is_ajax_request()){
+			redirect("");
+		}
 
 		$tabela = $this->cadastro->getTabela($id_tabela);
 
-		if(!empty($id_primary)){
-			foreach($tabela->colunas as $coluna){
-				if ($coluna->primary)
-					$consulta = $this->cadastro->getConsulta($tabela, [$coluna->coluna, $id_primary]);
-			}
-			echo my_form($tabela, $consulta);			
+		if(!empty($id)) {
+			$consulta = $this->cadastro->getConsulta($tabela, [$cp => $id]);
+			echo my_modal($tabela, $consulta);			
 		} else {
-			echo my_form($tabela);
+			echo my_modal($tabela);
+		}
+	}
+
+	public function editar(){
+		if(!$this->input->is_ajax_request()){
+			redirect("");
+		}
+
+		$tabela = $this->cadastro->getTabelaByUrl($this->input->post('_url'));
+		foreach ($tabela->colunas as  $coluna) {
+			if ($coluna->obrigatorio == '1'){
+				$this->form_validation->set_rules($coluna->coluna, $coluna->input_label, 'trim|required');
+			}
+		}
+
+		if ($this->form_validation->run() == TRUE) {
+			$this->cadastro->alterar($tabela, $this->input->post());
+			echo json_encode(["event" => "edt", "code" => "1", "message" => "Alteração realizada com sucesso!"]);
+			return;
+		} else {
+			echo json_encode(["event" => "edt", "code" => "0", "message" => validation_errors(null,null)]);
+			return;
 		}
 	}
 }

@@ -60,13 +60,21 @@ class Cadastro_model extends CI_Model {
 
     public function getConsulta($tabela, $where = array(), $limit = -1){
 		if(!empty($tabela)){
-			$query = $this->db->get_where($tabela->tabela, $where);
-			if (empty($where))
-				return $query->result();
-			else 
-				return $query->row();
-			
+			$query = $this->db->get_where(str_replace("tbl_", "", $tabela->tabela), $where);
+			return empty($where) ? $query->result() : $query->row();
 		}
 		return null;
-    }
+	}
+	
+	public function alterar($tabela, $post){
+		$data = [];
+		foreach ($tabela->colunas as $key => $coluna) {
+			if(isset($post[$coluna->coluna]))
+				$data[$coluna->coluna] = $post[$coluna->coluna];
+			if ($coluna->primary == '1'){
+				$where = [$coluna->coluna => $post[$coluna->coluna]];
+			}
+		}
+		return $this->db->update(str_replace("tbl_", "", $tabela->tabela), $data, $where);
+	}
 }
