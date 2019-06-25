@@ -34,6 +34,17 @@
         });
     });
 
+    $('#del').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var table = button.data('table');
+        var cp = button.data('cp');
+        var idp = button.data('idp');
+        var modal = $(this);
+        modal.find("#del_table").val(table);
+        modal.find("#del_cp"   ).val(cp);
+        modal.find("#del_idp"  ).val(idp);
+    });
+
     $(document).on("click", "#btnCadSalvar", function(e){
         $.ajax({
             type: "POST",
@@ -45,7 +56,7 @@
                     if (data.event == "edt") {
                         $("#edt").modal('hide');
                     } else if (data.event == "cad") {
-                        $("#cad").modal(false);
+                        $("#cad").modal('hide');
                     }
                     $("#alert-message").text(data.message);
                     $("#alert-modal").modal();
@@ -69,3 +80,37 @@
         //return false;
     });
 
+    $(document).on("click", "#btnCadDeletar", function(e){
+        $.ajax({
+            type: "POST",
+            url: $("#formCadastro").attr("action"),
+            data: $("#formCadastro").serialize(),
+            success: function(data){
+                data = JSON.parse(data);
+                if(data.code == '1'){
+                    if (data.event == "edt") {
+                        $("#edt").modal('hide');
+                    } else if (data.event == "cad") {
+                        $("#cad").modal('hide');
+                    }
+                    $("#alert-message").text(data.message);
+                    $("#alert-modal").modal();
+                    setInterval(function(){ $("#alert-modal").modal("hide"); }, 2000);
+                } else {
+                    $("#alert-message").text(data.message);
+                    $("#alert-modal").modal();
+                    setInterval(function(){ $("#alert-modal").modal("hide"); }, 2000);
+                }
+            },
+            error: function(data) {
+                console.log("erro");
+                console.log(data);
+                $("#alert-message").text("data.message");
+                $("#alert-modal").alert();
+                setInterval(function(){ $("#alert-modal").alert("close"); }, 3000);
+            }
+        });
+
+        //event.preventDefault();
+        //return false;
+    });

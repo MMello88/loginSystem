@@ -62,4 +62,48 @@ class Cadastro extends MY_Controller {
 			return;
 		}
 	}
+
+	public function cadastrar(){
+		if(!$this->input->is_ajax_request()){
+			redirect("");
+		}
+
+		$tabela = $this->cadastro->getTabelaByUrl($this->input->post('_url'));
+		foreach ($tabela->colunas as  $coluna) {
+			if ($coluna->obrigatorio == '1'){
+				$this->form_validation->set_rules($coluna->coluna, $coluna->input_label, 'trim|required');
+			}
+		}
+
+		if ($this->form_validation->run() == TRUE) {
+			$this->cadastro->inserir($tabela, $this->input->post());
+			echo json_encode(["event" => "cad", "code" => "1", "message" => "Cadastro realizado com sucesso!"]);
+			return;
+		} else {
+			echo json_encode(["event" => "cad", "code" => "0", "message" => validation_errors(null,null)]);
+			return;
+		}
+	}
+
+	public function remover(){
+		if(!$this->input->is_ajax_request()){
+			redirect("");
+		}
+
+		$tabela = $this->cadastro->getTabelaByUrl($this->input->post('_url'));
+		foreach ($tabela->colunas as  $coluna) {
+			if ($coluna->obrigatorio == '1'){
+				$this->form_validation->set_rules($coluna->coluna, $coluna->input_label, 'trim|required');
+			}
+		}
+
+		if ($this->form_validation->run() == TRUE) {
+			$this->cadastro->inserir($tabela, $this->input->post());
+			echo json_encode(["event" => "cad", "code" => "1", "message" => "Cadastro realizado com sucesso!"]);
+			return;
+		} else {
+			echo json_encode(["event" => "cad", "code" => "0", "message" => validation_errors(null,null)]);
+			return;
+		}
+	}
 }
