@@ -70,7 +70,7 @@ class Cadastro extends MY_Controller {
 
 		$tabela = $this->cadastro->getTabelaByUrl($this->input->post('_url'));
 		foreach ($tabela->colunas as  $coluna) {
-			if ($coluna->obrigatorio == '1'){
+			if ($coluna->obrigatorio == '1' && $coluna->primary == '0'){
 				$this->form_validation->set_rules($coluna->coluna, $coluna->input_label, 'trim|required');
 			}
 		}
@@ -91,18 +91,16 @@ class Cadastro extends MY_Controller {
 		}
 
 		$tabela = $this->cadastro->getTabelaByUrl($this->input->post('_url'));
-		foreach ($tabela->colunas as  $coluna) {
-			if ($coluna->obrigatorio == '1'){
-				$this->form_validation->set_rules($coluna->coluna, $coluna->input_label, 'trim|required');
-			}
-		}
+
+		$this->form_validation->set_rules('cp', 'Campo', 'trim|required');
+		$this->form_validation->set_rules('idp', 'Valor', 'trim|required');
 
 		if ($this->form_validation->run() == TRUE) {
-			$this->cadastro->inserir($tabela, $this->input->post());
-			echo json_encode(["event" => "cad", "code" => "1", "message" => "Cadastro realizado com sucesso!"]);
+			$this->cadastro->deletar($tabela, $this->input->post());
+			echo json_encode(["event" => "del", "code" => "1", "message" => "Delete do registro realizado com sucesso!"]);
 			return;
 		} else {
-			echo json_encode(["event" => "cad", "code" => "0", "message" => validation_errors(null,null)]);
+			echo json_encode(["event" => "del", "code" => "0", "message" => validation_errors(null,null)]);
 			return;
 		}
 	}

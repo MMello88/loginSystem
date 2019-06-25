@@ -149,6 +149,9 @@ CREATE TABLE `miste872_matilab`.`tbl_relacional`(
   CONSTRAINT `fk_coluna_rel` FOREIGN KEY (`id_coluna_rel`) REFERENCES `miste872_matilab`.`tbl_coluna`(`id_coluna`)
 );
 
+ALTER TABLE `miste872_matilab`.`tbl_coluna`   
+  ADD COLUMN `grid_visivel` CHAR(1) NOT NULL AFTER `input_type`,
+  ADD COLUMN `input_ordem` INT(11) NOT NULL AFTER `grid_visivel`;
 
 
 /*

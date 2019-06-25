@@ -60,24 +60,25 @@
                 <div class="modal fade" id="del" tabindex="-1" role="dialog" aria-labelledby="deletarModal" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Deletar</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <?= form_open("Dashboard/Cadastro/remover", ["id" => "formRemover"]) ?>
-                            <div class="modal-body">
-                                <h5>Deseja deletar o Registro?</h5>
-                                <input type="hidden" name="table" value="" id="del_table">
-                                <input type="hidden" name="cp"    value="" id="del_cp">
-                                <input type="hidden" name="idp"   value="" id="del_idp">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="button" class="btn btn-danger" id="btnCadDeletar">Deletar</button>
-                            </div>
-                        </form>
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Deletar</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<?= form_open("Dashboard/Cadastro/remover", ["id" => "formRemover"]) ?>
+									<h5>Deseja deletar o Registro?</h5>
+									<input type="hidden" name="table" value="" id="del_table">
+									<input type="hidden" name="cp"    value="" id="del_cp">
+									<input type="hidden" name="idp"   value="" id="del_idp">
+									<input type="hidden" name="_url"   value="" id="del_url">
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+								<button type="button" class="btn btn-danger" id="btnCadDeletar">Deletar</button>
+							</div>
                         </div>
                     </div>
                 </div>

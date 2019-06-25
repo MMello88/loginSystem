@@ -88,14 +88,7 @@ class Cadastro_model extends CI_Model {
 	}
 
 	public function deletar($tabela, $post){
-		$data = [];
-		foreach ($tabela->colunas as $key => $coluna) {
-			if(isset($post[$coluna->coluna]))
-				$data[$coluna->coluna] = $post[$coluna->coluna];
-			if ($coluna->primary == '1'){
-				$where = [$coluna->coluna => $post[$coluna->coluna]];
-			}
-		}
-		return $this->db->update(str_replace("tbl_", "", $tabela->tabela), $data, $where);
+		$where = [$post['cp'] => $post['idp']];
+		return $this->db->delete(str_replace("tbl_", "", $tabela->tabela), $where);
 	}
 }
