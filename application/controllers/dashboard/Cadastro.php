@@ -76,8 +76,8 @@ class Cadastro extends MY_Controller {
 		}
 
 		if ($this->form_validation->run() == TRUE) {
-			$this->cadastro->inserir($tabela, $this->input->post());
-			echo json_encode(["event" => "cad", "code" => "1", "message" => "Cadastro realizado com sucesso!"]);
+			$id = $this->cadastro->inserir($tabela, $this->input->post());
+			echo json_encode(["event" => "cad", "code" => "1", "message" => "Cadastro realizado com sucesso!", "idp" => $id]);
 			return;
 		} else {
 			echo json_encode(["event" => "cad", "code" => "0", "message" => validation_errors(null,null)]);

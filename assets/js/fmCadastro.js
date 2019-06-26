@@ -60,6 +60,22 @@
                     } else if (data.event == "cad") {
                         $("#cad").modal('hide');
                     }
+                    var fields = $("#formCadastro").serializeArray();
+                    var html = "";
+                    $.each( fields, function( i, field ) {
+                        if (field.name == '_url')
+                            html += '<tr data-url='+field.name+'>';
+                        //alert(field.name + " > " + field.value);
+                    });
+                    $.each( fields, function( i, field ) {
+                        html += '<td contenteditable id="data1"></td>';
+                        html += '<td contenteditable id="data2"></td>';
+                        html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
+                        html += "<td><div class='btn-group'><button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Action</button><div class='dropdown-menu'><a class='dropdown-item' href='#' data-toggle='modal' data-target='#edt' data-table='{$arr_primary['id_tabela']}' data-cp='{$arr_primary['campo']}' data-idp='{$arr_primary['valor']}'>Editar</a><a class='dropdown-item' href='#' data-toggle='modal' data-target='#del' data-url='{$arr_primary['url']}' data-table='{$arr_primary['id_tabela']}' data-cp='{$arr_primary['campo']}' data-idp='{$arr_primary['valor']}'>Remover</a><div class='dropdown-divider'></div><a class='dropdown-item' href='#'>Registro Filho</a></div></div></td>";
+                    });
+                    html += '</tr>';
+
+                    $('#rowselect tbody').prepend(html);
                     $("#alert-message").text(data.message);
                     $("#alert-modal").modal();
                     setInterval(function(){ $("#alert-modal").modal("hide"); }, 2000);

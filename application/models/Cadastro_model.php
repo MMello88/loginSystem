@@ -59,8 +59,12 @@ class Cadastro_model extends CI_Model {
     }
 
     public function getConsulta($tabela, $where = array(), $limit = -1){
+    	foreach ($tabela->colunas as $coluna) {
+    		if($coluna->primary == '1')
+    			$colPrimary = $coluna->coluna;
+    	}
 		if(!empty($tabela)){
-			$query = $this->db->get_where(str_replace("tbl_", "", $tabela->tabela), $where);
+			$query = $this->db->order_by($colPrimary, 'DESC')->get_where(str_replace("tbl_", "", $tabela->tabela), $where);
 			return empty($where) ? $query->result() : $query->row();
 		}
 		return null;
@@ -84,7 +88,8 @@ class Cadastro_model extends CI_Model {
 			if(isset($post[$coluna->coluna]))
 				$data[$coluna->coluna] = $post[$coluna->coluna];
 		}
-		return $this->db->insert(str_replace("tbl_", "", $tabela->tabela), $data);
+		$this->db->insert(str_replace("tbl_", "", $tabela->tabela), $data);
+		return $this->db->insert_id();
 	}
 
 	public function deletar($tabela, $post){

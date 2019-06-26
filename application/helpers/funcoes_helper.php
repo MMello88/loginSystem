@@ -104,14 +104,14 @@ function my_data_table($tabela, $rows){
             $tr .= "<th>{$coluna->input_label}</th>";
         }
         $data .= $tr . "<th> x </th> </tr> </thead>";
-        $tbody = "<tbody>";
+        $tbody = "<tbody  data-url='$tabela->url' data-table='$tabela->id_tabela'>";
         $tr = "";
         foreach ($rows as $key => $row) {
             $tr .= "<tr>";
             
             foreach ($tabela->colunas as $coluna){
                 $col = $coluna->coluna;
-                $tr .= "<td>" . $row->$col . "</td>";
+                $tr .= "<td data-campo='$col'>" . $row->$col . "</td>";
 
                 if($coluna->primary == '1'){
                     $arr_primary = ['url' => $tabela->url, 'id_tabela' => $tabela->id_tabela, 'campo' => $coluna->coluna, 'valor' => $row->$col];
