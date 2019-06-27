@@ -9,7 +9,12 @@
             </form>
         </div>
 
-        <script> var base_url = '<?= base_url() ?>' </script>
+        <script> 
+            var base_url = '<?= base_url() ?>';
+            var url = '<?= $tabela->url ?>';
+            var table = '<?= $tabela->id_tabela ?>';
+            var colunas = '<?= json_encode($tabela->colunas) ?>';
+        </script>
         <!-- jquery vendor -->
         <script src="<?= base_url() ?>assets/template/assets/js/lib/jquery.min.js"></script>
         <script src="<?= base_url() ?>assets/template/assets/js/lib/jquery.nanoscroller.min.js"></script>

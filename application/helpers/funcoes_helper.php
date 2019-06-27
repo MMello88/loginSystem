@@ -50,7 +50,6 @@ function my_form($tabela, $consulta = ''){
                         <div class='card-body'>
                             <div class='basic-form'>
                                 ".form_open("Dashboard/Cadastro/$funcao", ["class" => "form-horizontal", "id" => "formCadastro"])."
-									<input type='hidden' name='_url' value='$tabela->url'>
     ";
     foreach($tabela->colunas as $coluna){
         if (!empty($consulta))
@@ -104,7 +103,7 @@ function my_data_table($tabela, $rows){
             $tr .= "<th>{$coluna->input_label}</th>";
         }
         $data .= $tr . "<th> x </th> </tr> </thead>";
-        $tbody = "<tbody  data-url='$tabela->url' data-table='$tabela->id_tabela'>";
+        $tbody = "<tbody>";
         $tr = "";
         foreach ($rows as $key => $row) {
             $tr .= "<tr>";
@@ -114,7 +113,7 @@ function my_data_table($tabela, $rows){
                 $tr .= "<td data-campo='$col'>" . $row->$col . "</td>";
 
                 if($coluna->primary == '1'){
-                    $arr_primary = ['url' => $tabela->url, 'id_tabela' => $tabela->id_tabela, 'campo' => $coluna->coluna, 'valor' => $row->$col];
+                    $arr_primary = ['campo' => $coluna->coluna, 'valor' => $row->$col];
                 }
             }
             $tr .= "<td>
@@ -123,8 +122,8 @@ function my_data_table($tabela, $rows){
                                 Action
                             </button>
                             <div class='dropdown-menu'>
-                                <a class='dropdown-item' href='#' data-toggle='modal' data-target='#edt' data-table='{$arr_primary['id_tabela']}' data-cp='{$arr_primary['campo']}' data-idp='{$arr_primary['valor']}'>Editar</a>
-                                <a class='dropdown-item' href='#' data-toggle='modal' data-target='#del' data-url='{$arr_primary['url']}' data-table='{$arr_primary['id_tabela']}' data-cp='{$arr_primary['campo']}' data-idp='{$arr_primary['valor']}'>Remover</a>
+                                <a class='dropdown-item' href='#' data-toggle='modal' data-target='#edt' data-cp='{$arr_primary['campo']}' data-idp='{$arr_primary['valor']}'>Editar</a>
+                                <a class='dropdown-item' href='#' data-toggle='modal' data-target='#del' data-cp='{$arr_primary['campo']}' data-idp='{$arr_primary['valor']}'>Remover</a>
                                 <div class='dropdown-divider'></div>
                                 <a class='dropdown-item' href='#'>Registro Filho</a>
                             </div>

@@ -3,7 +3,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-title">
-                                    <h4><a href='#' data-toggle='modal' data-target='#cad' data-table='<?= $tabela->id_tabela ?>'>Cadastrar</a></h4>
+                                    <h4><a href='#' data-toggle='modal' data-target='#cad'>Cadastrar</a></h4>
                                     
                                 </div>
                                 <div class="bootstrap-data-table-panel" id="bootstrap-data-table-panel">
@@ -56,7 +56,6 @@
                     </div>
                 </div>
 
-
                 <div class="modal fade" id="del" tabindex="-1" role="dialog" aria-labelledby="deletarModal" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -69,10 +68,10 @@
 							<div class="modal-body">
 								<?= form_open("Dashboard/Cadastro/remover", ["id" => "formRemover"]) ?>
 									<h5>Deseja deletar o Registro?</h5>
-									<input type="hidden" name="table" value="" id="del_table">
+
 									<input type="hidden" name="cp"    value="" id="del_cp">
 									<input type="hidden" name="idp"   value="" id="del_idp">
-									<input type="hidden" name="_url"   value="" id="del_url">
+									<input type="hidden" name="_url"   value="" id="<?= $tabela->url ?>">
 								</form>
 							</div>
 							<div class="modal-footer">

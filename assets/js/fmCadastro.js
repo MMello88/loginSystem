@@ -1,10 +1,9 @@
 
 
-    var table = $('#rowselect').DataTable();
+    var datatable = $('#rowselect').DataTable();
 
     $('#edt').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
-        var table  = button.data('table');
         var idP    = button.data('idp');
         var cp     = button.data('cp');
         var modal  = $(this);
@@ -21,7 +20,6 @@
 
     $('#cad').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
-        var table = button.data('table');
         var modal = $(this);
         $.ajax({
             url: base_url + "Dashboard/Cadastro/getFormulario/"+table,
@@ -36,15 +34,11 @@
 
     $('#del').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
-        var table  = button.data('table');
         var cp     = button.data('cp');
         var idp    = button.data('idp');
-		var url    = button.data('url');
         var modal  = $(this);
-        modal.find("#del_table").val(table);
         modal.find("#del_cp"   ).val(cp);
         modal.find("#del_idp"  ).val(idp);
-		modal.find("#del_url"  ).val(url);
     });
 
     $(document).on("click", "#btnCadSalvar", function(e){
@@ -62,12 +56,9 @@
                     }
                     var fields = $("#formCadastro").serializeArray();
                     var html = "";
+
                     $.each( fields, function( i, field ) {
-                        if (field.name == '_url')
-                            html += '<tr data-url='+field.name+'>';
-                        //alert(field.name + " > " + field.value);
-                    });
-                    $.each( fields, function( i, field ) {
+                        html += '<tr>';
                         html += '<td contenteditable id="data1"></td>';
                         html += '<td contenteditable id="data2"></td>';
                         html += '<td><button type="button" name="insert" id="insert" class="btn btn-success btn-xs">Insert</button></td>';
