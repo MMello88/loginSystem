@@ -79,36 +79,15 @@ CREATE TABLE `miste872_matilab`.`tbl_menu_usuario`(
 ALTER TABLE `miste872_matilab`.`tbl_menu`
   ADD COLUMN `icone` VARCHAR(100) NULL AFTER `status`;
 
-INSERT INTO tbl_menu VALUES (NULL, 'Home', 'Welcome', 1, 'a', 'ti-home');
-INSERT INTO tbl_menu VALUES (NULL, 'Logout', 'logout', 99, 'a', 'ti-close');
+ALTER TABLE `miste872_matilab`.`tbl_menu`   
+  ADD COLUMN `menu_titulo` VARCHAR(100) NOT NULL AFTER `icone`;
+
+INSERT INTO tbl_menu VALUES (NULL, 'Home', 'Welcome', 1, 'a', 'ti-home', 'Home');
+INSERT INTO tbl_menu VALUES (NULL, 'Logout', 'logout', 99, 'a', 'ti-close', 'Sair');
 INSERT INTO tbl_menu_usuario VALUES (NULL, 1, 1);
 INSERT INTO tbl_menu_usuario VALUES (NULL, 1, 2);
 
-CREATE TABLE `miste872_matilab`.`tbl_titulo`(  
-  `id_titulo` INT(11)  NOT NULL AUTO_INCREMENT,
-  `titulo` VARCHAR(150) NOT NULL,
-  PRIMARY KEY (`id_titulo`)
-);
 
-INSERT INTO tbl_titulo VALUES (NULL, 'Principal');
-INSERT INTO tbl_titulo VALUES (NULL, 'Cadastro');
-INSERT INTO tbl_titulo VALUES (NULL, 'Configuração');
-
-CREATE TABLE `miste872_matilab`.`tbl_menu_titulo`(  
-  `id_menu_titulo` INT(11) NOT NULL AUTO_INCREMENT,
-  `id_menu` INT(11) NOT NULL,
-  `id_titulo` INT(11) NOT NULL,
-  PRIMARY KEY (`id_menu_titulo`),
-  CONSTRAINT `fk_menu` FOREIGN KEY (`id_menu`) REFERENCES `miste872_matilab`.`tbl_menu`(`id_menu`),
-  CONSTRAINT `fk_titulo` FOREIGN KEY (`id_titulo`) REFERENCES `miste872_matilab`.`tbl_titulo`(`id_titulo`)
-);
-
-INSERT INTO tbl_menu_titulo VALUES (NULL, 1, 1);
-INSERT INTO tbl_menu_titulo VALUES (NULL, 2, 3);
-
-INSERT INTO tbl_menu VALUES (NULL, 'Menu', 'Dashboard/Menu', 1, 'a', 'ti-layout-grid4-alt');
-INSERT INTO tbl_menu_titulo VALUES (NULL, 3, 2);
-INSERT INTO tbl_menu_usuario VALUES (NULL, 1, 3);
 
 CREATE TABLE `miste872_matilab`.`tbl_tabela`(  
   `id_tabela` INT(11) NOT NULL AUTO_INCREMENT,
